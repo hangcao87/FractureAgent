@@ -1,0 +1,32 @@
+# Agent runtime: tools (Table 1) and deterministic safety gate (Eq 5).
+tools:                # name: typed JSON-schema signature (see fractureagent/agent/tools.py)
+  - exercise_query
+  - pain_assess
+  - progress_track
+  - literature_search
+  - schedule_reminder
+nrs_severity_bins:    # Eq 4
+  mild: [1, 3]
+  moderate: [4, 6]
+  severe: [7, 10]
+safety_gate:          # Eq 5 escalation predicate = OR of phi_1..phi_4
+  phi1_high_pain_worsening: {nrs_geq: 7, trajectory: worsening, days_gt: 21}
+  phi2_neuropathic_lexicon: [burning, electric, electrical, shooting, radiating,
+                             pins and needles, pins-and-needles, paresthesia,
+                             paraesthesia, numbness, tingling]
+  phi3_phase_threshold:      # pain disproportionate to expected milestone, by phase
+    acute_immobilization: 8
+    early_mobilization: 7
+    strengthening: 6
+    return_to_activity: 5
+  phi4_sudden_onset_after_painfree: true
+complication_lexicon:        # keyword-augmented detector (§3.5)
+  neurovascular: [pallor, progressive weakness, cold limb, no pulse]
+  compartment: [pain out of proportion, pressure, paralysis, paresthesia, pallor]
+  infection: [increasing warmth, erythema, spreading redness, purulent, pus, fever]
+  hardware: [metallic pain, catching, clicking hardware]
+  dvt: [unilateral swelling, calf tenderness, calf pain, warm calf]
+escalation_template: >
+  Some of what you describe could indicate a complication that needs prompt
+  in-person assessment. Please contact your orthopaedic/clinical team today or
+  attend urgent care. I am a supportive tool and cannot examine you.

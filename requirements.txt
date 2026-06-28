@@ -1,0 +1,26 @@
+# Core
+torch>=2.3
+transformers>=4.46
+datasets>=3.0
+accelerate>=1.0
+peft>=0.13
+trl>=0.12            # SFTTrainer + GRPOTrainer
+bitsandbytes>=0.44   # 4-bit NF4 QLoRA
+sentencepiece>=0.2
+# Data collection / processing
+requests>=2.32
+beautifulsoup4>=4.12
+lxml>=5.0
+biopython>=1.84      # NCBI Entrez E-utilities
+datasketch>=1.6      # MinHash near-duplicate detection
+PyYAML>=6.0
+tqdm>=4.66
+# Synthesis (optional; only if you regenerate dialogues)
+openai>=1.50
+# Eval / analysis
+scikit-learn>=1.5
+sacrebleu>=2.4
+numpy>=1.26
+scipy>=1.13
+statsmodels>=0.14
+matplotlib>=3.8

@@ -1,0 +1,58 @@
+# Data collection + processing configuration.
+seed: 20260618
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+sources:
+  aaos:
+    name: AAOS Clinical Practice Guidelines (OrthoGuidelines)
+    base_url: https://www.orthoguidelines.org
+    guidelines: [distal-radius-fracture, proximal-humerus-fracture,
+                 hip-fracture-elderly, tibial-plateau-fracture, ankle-fracture]
+    rate_limit_s: 2.0
+  ao:
+    name: AO Surgery Reference (open-access sections)
+    base_url: https://surgeryreference.aofoundation.org
+    rate_limit_s: 2.0
+  pubmed_oa:
+    name: PubMed Central Open Access subset
+    query: '("fracture rehabilitation" OR "fracture physiotherapy" OR "fracture recovery exercise")'
+    mindate: "2010"
+    maxdate: "2024"
+    max_records: 1500          # screened; ~312 kept after relevance/evidence filter
+    rate_limit_s: 0.34         # 3 req/s without API key; 10 req/s with NCBI_API_KEY
+  physionet:
+    name: PhysioNet de-identified clinical-dialogue datasets
+    note: "Some datasets require credentialed access; see DATA_LICENSES.md"
+    rate_limit_s: 2.0
+  patient_edu:
+    name: WikiDoc + MedlinePlus patient-education
+    wikidoc_base: https://www.wikidoc.org
+    medlineplus_base: https://medlineplus.gov
+    rate_limit_s: 2.0
+fracture_categories:        # Table 2 of the paper
+  - {key: distal_radius,    region: wrist_forearm,  target_examples: 3412}
+  - {key: proximal_humerus, region: shoulder,       target_examples: 2987}
+  - {key: hip,              region: hip_femur,       target_examples: 3201}
+  - {key: tibial_plateau,   region: knee_tibia,      target_examples: 2643}
+  - {key: ankle,            region: ankle_foot,      target_examples: 3118}
+  - {key: clavicle,         region: shoulder_girdle, target_examples: 2381}
+  - {key: general,          region: mixed,           target_examples: 1000}
+synthesis:
+  model: gpt-4o
+  variants_per_chunk: [3, 7]   # instantiate each guideline chunk into 3-7 scenarios
+  temperature: 0.8
+  demographics:                # balanced synthetic patient profiles (R5 minor comment)
+    age_bands: [[18,40],[41,65],[66,95]]
+    sexes: [female, male]
+    comorbidities: [none, diabetes, osteoporosis, smoking]
+quality_filter:
+  relevance_model: microsoft/deberta-v3-base   # fine-tune on medical QA; threshold below
+  min_relevance: 0.80
+  minhash_threshold: 0.60      # drop near-duplicates / eval-overlap above this Jaccard
+mixture:
+  lambda_agent: 0.70           # 70:30 agent-format : standard-dialogue (Eq 8)
+split:
+  ratios: {train: 0.8, val: 0.1, test: 0.1}
+  level: source_scenario       # disjoint at source-document & scenario level (no leakage)

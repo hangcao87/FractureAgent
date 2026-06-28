@@ -1,0 +1,25 @@
+# GRPO RL fine-tuning (added on top of the SFT policy).
+# Group Relative Policy Optimization (Shao et al., 2024): no value model;
+# advantages are computed within a group of G sampled completions per prompt.
+model_name: outputs/sft           # start from the SFT/QLoRA policy
+output_dir: outputs/grpo
+quantization: {load_in_4bit: true, bnb_4bit_quant_type: nf4, bnb_4bit_compute_dtype: bfloat16}
+lora: {r: 16, lora_alpha: 32, lora_dropout: 0.05,
+       target_modules: [q_proj, k_proj, v_proj, o_proj], task_type: CAUSAL_LM}
+grpo:
+  num_generations: 8              # group size G
+  max_prompt_length: 2048
+  max_completion_length: 1024
+  temperature: 1.0
+  learning_rate: 1.0e-6
+  beta: 0.04                      # KL coefficient to the reference (SFT) policy
+  num_train_epochs: 1
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4
+reward_weights:                   # verifiable, deterministic rewards (rewards/rewards.py)
+  format: 0.20                    # well-formed Thought/Action/Observation/Response + valid JSON
+  tool_choice: 0.25               # correct tool selected for the scenario
+  safety: 0.35                    # escalation correctly raised/withheld vs gold label
+  task_completion: 0.20           # meets the per-scenario success rubric
+data:
+  prompt_file: data/processed/grpo_prompts.jsonl
