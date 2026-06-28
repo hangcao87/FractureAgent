@@ -1,74 +1,84 @@
-# FractureAgent
+﻿# FractureAgent
 
-A reproducible, single-GPU recipe for a **multi-tool LLM agent** that supports
-fracture-rehabilitation dialogue. This repository contains the full pipeline
-described in the paper *"FractureAgent: A Multi-Tool LLM-Based Intelligent Agent
-for Personalized Fracture Rehabilitation Management"* and adds an optional
-**GRPO** reinforcement-learning stage on top of the QLoRA SFT policy.
+A Multi-Tool LLM-Based Intelligent Agent for Personalized Fracture Rehabilitation Management.
 
-> **Status: research proof-of-concept.** Evaluated only on simulated scenarios.
-> Not a medical device; not for clinical use. See the paper's Limitations and the
-> deterministic safety gate's documented false-negative rate.
+## Overview
 
-## What's here
+**FractureAgent** is a ReAct-based multi-tool intelligent agent built on a domain-fine-tuned Qwen3.5-9B backbone, designed to provide personalized fracture rehabilitation guidance in simulated clinical scenarios. It orchestrates five specialized tools — exercise-database query, pain and symptom assessment, functional progress tracking, medical literature retrieval, and reminder scheduling — guided by a deterministic safety gate.
+
+**Note:** This is a research prototype. The evaluation was conducted entirely in simulated settings. Prospective clinical validation is required before any deployment-ready claim can be made.
+
+## Paper
+
+This repository contains the code accompanying the manuscript:
+
+> *FractureAgent: A Multi-Tool LLM-Based Intelligent Agent for Personalized Fracture Rehabilitation Management*
+> Hang Cao, Fangwei Hu, Lin Xu, Kun Guo, Bingchuan Xue, Ning Zhang, Jinhao Sun, Weijuan Gong, Xiao Ouyang
+> **Scientific Reports** (under review)
+
+The code will be made publicly accessible upon publication.
+
+## Repository Structure
+
 ```
-configs/                YAML configs (data, agent, SFT-QLoRA, GRPO)
 fractureagent/
-  data/                 crawlers + 4-step processing + SFT/GRPO builders + split
-  agent/                5 typed tools, Eq-5 safety gate, ReAct loop, patient state
-  train/                train_sft.py (QLoRA SFT), train_grpo.py (GRPO)
-  rewards/              verifiable reward functions used by GRPO
-  eval/                 210-scenario harness, metrics (Appendix A), evaluate.py
-scripts/                00_crawl → 01_build_dataset → 02_train_sft → 03_train_grpo → 04_evaluate
-analysis/               statistics + figure scripts that reproduce the paper's CIs/figures
-tests/                  unit tests (safety gate, metrics)
+├── agent/          # ReAct agent core: reasoning loop, tool definitions, safety gate, state management
+├── data/           # Data pipeline: crawling, dialogue synthesis, quality filtering, dataset splitting
+├── eval/           # Evaluation framework: metrics, evaluation scenarios (210 scenarios)
+├── rewards/        # GRPO reward functions
+├── train/          # QLoRA fine-tuning (SFT + GRPO)
+└── utils/          # HTTP utilities and helpers
+
+analysis/           # Statistical analysis scripts (CIs, effect sizes, latency, hallucination audit, ICC)
+configs/            # Training and data processing configuration files (YAML)
+scripts/            # End-to-end pipeline scripts (00_crawl → 04_evaluate)
+tests/              # Unit tests for metrics and safety gate
+data/               # Dataset documentation
 ```
 
-## Install
+## Key Results
+
+| Metric | FractureAgent | Qwen3.5-9B (zero-shot) | GPT-4o (zero-shot) |
+|---|---|---|---|
+| Task Completion Rate | 91.4% | 61.4% | 67.3% |
+| Expert Likert Score | 4.21/5.00 | 3.21 | — |
+| Complication Sensitivity | 0.843 | 0.592 | 0.651 |
+| Specificity | 0.912 | — | — |
+
+## Requirements
+
+See [requirements.txt](requirements.txt) for Python dependencies. Training requires a GPU with >=24 GB VRAM.
+
+## Pipeline
+
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env        # fill in keys (only OPENAI_API_KEY is needed to re-synthesize)
+# 1. Crawl open-access clinical sources
+bash scripts/00_crawl.sh
+
+# 2. Build the fine-tuning dataset
+bash scripts/01_build_dataset.sh
+
+# 3. Train with SFT
+bash scripts/02_train_sft.sh
+
+# 4. (Optional) Train with GRPO
+bash scripts/03_train_grpo.sh
+
+# 5. Evaluate
+bash scripts/04_evaluate.sh
 ```
 
-## End-to-end
-```bash
-bash scripts/00_crawl.sh          # download open-access sources (rate-limited, robots-aware)
-bash scripts/01_build_dataset.sh  # extract→synthesize→tool-traces→filter→SFT+GRPO+split
-bash scripts/02_train_sft.sh      # QLoRA SFT  (§5: r=16, alpha=32, NF4, 4 epochs)
-bash scripts/03_train_grpo.sh     # optional GRPO RL on top of the SFT policy
-bash scripts/04_evaluate.sh       # 210-scenario evaluation: TCR, BLEU-4, safety, ...
-```
-Each step reads the YAML configs and writes to `data/` and `outputs/`.
+## License
 
-## Data formats
-- **SFT** (`data/processed/sft_*.jsonl`): one record per multi-turn example in the
-  Qwen chat-template schema. Assistant turns carry the full
-  `Thought → Action → Observation → Response` trace. The trainer masks the loss to
-  the assistant Thought/Action/Response spans only (Eq. 7); user turns and tool
-  Observations are excluded.
-- **GRPO** (`data/processed/grpo_prompts.jsonl`): one record per prompt with the
-  fields needed by the verifiable reward functions (gold tool, gold escalation
-  label, success rubric). GRPO samples `G` completions per prompt and scores them
-  with `rewards/rewards.py` (format + tool-choice + safety + task-completion).
-
-## Reproducing the paper's statistics/figures
-```bash
-python analysis/01_proportion_cis_and_tests.py   # Table 3 CIs, effect sizes, tests
-python analysis/figures/make_figures.py          # Fig 6-9 + forest plot (vector PDF)
-```
-
-## Model
-Default base model in `configs/sft_qlora.yaml` is `Qwen/Qwen2.5-7B-Instruct`
-(a publicly available Qwen-family instruct checkpoint). The paper used
-`Qwen3.5-9B`; set `model_name` to whichever Qwen-family checkpoint you have access
-to — the recipe is backbone-agnostic.
-
-## Responsible use & data licensing
-The crawlers respect `robots.txt`, rate-limit, and prefer official APIs. Downloaded
-content stays under its source license; see **DATA_LICENSES.md**. No real patient
-data are collected. The safety gate is deterministic but rule/keyword-based and
-will miss out-of-lexicon presentations — it is a supervised adjunct only.
+MIT License — see [LICENSE](LICENSE) for details.
 
 ## Citation
-See `CITATION.cff`.
+
+```bibtex
+@article{cao2025fractureagent,
+  title={FractureAgent: A Multi-Tool LLM-Based Intelligent Agent for Personalized Fracture Rehabilitation Management},
+  author={Cao, Hang and Hu, Fangwei and Xu, Lin and Guo, Kun and Xue, Bingchuan and Zhang, Ning and Sun, Jinhao and Gong, Weijuan and Ouyang, Xiao},
+  journal={Scientific Reports},
+  year={2025}
+}
+```
