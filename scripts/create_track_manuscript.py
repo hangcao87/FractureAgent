@@ -119,7 +119,7 @@ def main() -> None:
         "may be directed to hangcao87@163.com, subject to source licences, author approval and any applicable institutional requirements."
     )
     code_text = (
-        "Code availability. The public repository at https://github.com/hangcao87/FractureAgent/tree/reproducible-rebuild contains the data-processing "
+        "Code availability. The public repository at https://github.com/hangcao87/FractureAgent contains the data-processing "
         "scripts, versioned training prompts, tool schemas and implementations, deterministic safety gate, ms-swift/Swift QLoRA configuration, training "
         "launchers, evaluation code and non-sensitive run-record templates. The trained FractureAgent weights, LoRA checkpoints, private credentials and "
         "curated training corpus are not publicly released at this stage. Users may reproduce the workflow with a legally obtained local base model and "

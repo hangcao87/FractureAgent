@@ -81,7 +81,7 @@ def build(out: str):
 
     add_labelled(doc, "Response to Reviewer 2", "", color=BLUE)
     add_labelled(doc, "Reviewer comment: ", "The authors have matched all the previously highlighted points. Hence, it is now worthy of publication and I hope it will reach the widest audience possible. https://github.com/hangcao87/FractureAgent", color=BLUE, italic=True)
-    add_labelled(doc, "Response: ", "We sincerely thank the Reviewer for the positive assessment and for recognizing the revisions made in the previous round. We have continued to improve the accompanying repository. The reproducible-rebuild branch now contains the complete data-processing code, versioned prompts, tool schemas and implementations, deterministic safety gate, ms-swift/Swift QLoRA training configuration and launchers, evaluation code, and non-sensitive reproducibility-record templates. The training data and trained model weights are not included. The repository is available at https://github.com/hangcao87/FractureAgent/tree/reproducible-rebuild.")
+    add_labelled(doc, "Response: ", "We sincerely thank the Reviewer for the positive assessment and for recognizing the revisions made in the previous round. We have continued to improve the accompanying repository. The public main branch contains the complete data-processing code, versioned prompts, tool schemas and implementations, deterministic safety gate, ms-swift/Swift QLoRA training configuration and launchers, evaluation code, and non-sensitive reproducibility-record templates. The training data and trained model weights are not included. The repository is available at https://github.com/hangcao87/FractureAgent.")
 
     doc.add_page_break()
     add_labelled(doc, "Response to Reviewer 4", "", color=BLUE)
