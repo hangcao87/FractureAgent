@@ -39,7 +39,7 @@ The abstract would benefit from revision to better align with the journal’s fo
 
 **Response**
 
-We agree with the Reviewer. We replaced the structured abstract with a single unstructured paragraph and shortened it by retaining only the study rationale, the FractureAgent architecture, the essential training and evaluation design, the principal findings and the simulation-based limitation.
+We agree with the Reviewer. We replaced the structured abstract with a single unstructured paragraph and shortened it while clarifying the argument flow: the clinical-support gap is stated first, followed by the proposed tool-augmented method, the essential training and evaluation design, the principal quantitative findings and the simulation-based limitation.
 
 **Manuscript location:** Abstract.
 
