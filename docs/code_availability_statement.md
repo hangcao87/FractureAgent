@@ -1,0 +1,7 @@
+# Code Availability statement for the manuscript
+
+The code used to construct the training corpus, including source normalization, text chunking, dialogue synthesis prompts, tool-trace augmentation, quality filtering and deterministic data splitting, together with the FractureAgent prompt templates, tool schemas, deterministic safety gate, QLoRA fine-tuning launcher and evaluation scripts, will be made available in the accompanying GitHub repository: https://github.com/hangcao87/FractureAgent. The repository includes synthetic fixtures and does not redistribute downloaded source documents; users must obtain open-access materials under the terms of their original providers. The trained FractureAgent model weights, LoRA checkpoints, private API credentials and non-public institutional materials are not included because they are being retained for ongoing intellectual-property protection, follow-on validation and grant-application work. The repository provides instructions for supplying a legally obtained local base model and reproducing the data-processing and training workflow without access to the authors' checkpoint.
+
+## Short version
+
+Code, prompts, tool schemas, data-processing scripts, training scripts and evaluation scripts are available at https://github.com/hangcao87/FractureAgent. Trained model weights and checkpoints are not publicly released at this stage because they are being retained for ongoing research, intellectual-property protection and grant-application work. No patient-level data are distributed.

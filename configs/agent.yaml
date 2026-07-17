@@ -1,0 +1,5 @@
+max_steps: 4
+temperature: 0.0
+system_prompt: prompts/system_rehab.txt
+tool_schemas: prompts/tools.json
+escalation_response: prompts/escalation_response.txt

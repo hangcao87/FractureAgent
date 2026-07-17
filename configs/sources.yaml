@@ -1,0 +1,25 @@
+sources:
+  - id: aaos
+    name: AAOS Clinical Practice Guidelines
+    url: https://www.orthoguidelines.org/guidelines
+    access: open_access_check_required
+  - id: ao_reference
+    name: AO Surgery Reference
+    url: https://surgeryreference.aofoundation.org/
+    access: open_access_check_required
+  - id: pubmed_oa
+    name: PubMed Central Open Access subset
+    url: https://www.ncbi.nlm.nih.gov/pmc/tools/openftlist/
+    access: open_access_check_required
+  - id: physionet
+    name: PhysioNet
+    url: https://physionet.org/
+    access: license_specific
+  - id: wikidoc
+    name: WikiDoc
+    url: https://www.wikidoc.org/
+    access: license_specific
+  - id: medlineplus
+    name: MedlinePlus
+    url: https://medlineplus.gov/
+    access: public_health_information_terms_apply

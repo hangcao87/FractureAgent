@@ -1,0 +1,2 @@
+{"id":"scenario-001","fracture_type":"distal radius fracture","body_region":"wrist / forearm","phase":"early_mobilization","weeks_post_injury":4,"user":"My wrist is stiff after the cast was removed. Can I start gentle movement?","expected_tools":["exercise_query"],"complication":false}
+{"id":"scenario-002","fracture_type":"ankle fracture","body_region":"ankle / foot","phase":"strengthening","weeks_post_injury":10,"user":"The calf is suddenly swollen and very painful after I was walking more.","expected_tools":[],"complication":true}

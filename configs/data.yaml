@@ -1,0 +1,13 @@
+seed: 2026
+sources_manifest: configs/sources.yaml
+scenario_variants: 37
+agent_trace_ratio: 0.70
+quality:
+  min_chars: 80
+  max_chars: 8000
+  required_terms: [fracture, rehabilitation]
+  reject_terms: [guaranteed cure, stop all medication]
+split:
+  train: 0.80
+  dev: 0.10
+  test: 0.10

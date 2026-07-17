@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fractureagent-reproducible"
+version = "0.1.0"
+description = "Reproducible data, prompt, agent, training, and evaluation recipe for FractureAgent"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+data = ["beautifulsoup4>=4.12", "pypdf>=4.0", "requests>=2.31"]
+train = ["torch>=2.2", "transformers>=4.45", "datasets>=2.20", "peft>=0.12", "bitsandbytes>=0.43", "trl>=0.10", "accelerate>=0.34"]
+eval = ["sacrebleu>=2.4"]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.scripts]
+fractureagent = "fractureagent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["fractureagent*"]

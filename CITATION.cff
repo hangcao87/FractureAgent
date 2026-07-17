@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "FractureAgent reproducible research repository"
+message: "If you use this repository, please cite the accompanying FractureAgent manuscript."
+type: software
+authors:
+  - family-names: Cao
+    given-names: Hang
+  - family-names: Hu
+    given-names: Fangwei
+year: 2026
+version: 0.1.0
+license: MIT
+repository-code: https://github.com/hangcao87/FractureAgent
