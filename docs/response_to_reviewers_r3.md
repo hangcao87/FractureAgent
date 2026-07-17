@@ -17,7 +17,7 @@ Thank you.
 
 **Response**
 
-We thank the Reviewer for the positive assessment. We have nevertheless made the cross-cutting transparency revision requested in this round, including the unstructured abstract and the dedicated Code Availability statement.
+We thank the Reviewer for the positive assessment.
 
 ## Response to Reviewer 2
 
@@ -27,7 +27,7 @@ The authors have matched all the previously highlighted points. Hence, it is now
 
 **Response**
 
-We sincerely thank the Reviewer for the positive assessment and for recognizing the revisions made in the previous round. We have continued to improve the accompanying repository. The public `main` branch contains the complete data-processing code, versioned prompts, tool schemas and implementations, deterministic safety gate, ms-swift/Swift QLoRA training configuration and launchers, evaluation code, synthetic fixtures and non-sensitive reproducibility-record templates. The curated training corpus and trained model weights are not included for the source-licence, ongoing-validation and intellectual-property reasons detailed in our response to Comment 4.2. The repository is available at https://github.com/hangcao87/FractureAgent.
+We sincerely thank the Reviewer for the positive assessment and for recognizing the revisions made in the previous round. The public `main` branch contains the data-processing code, versioned prompts, tool schemas and implementations, deterministic safety gate, ms-swift QLoRA training configuration and launchers, evaluation code, synthetic fixtures and non-sensitive reproducibility-record templates. The curated training corpus and trained model weights are not included for the source-licence, ongoing-validation, planned-research and intellectual-property reasons detailed in our response to Comment 4.2. The repository is available at https://github.com/hangcao87/FractureAgent.
 
 ## Response to Reviewer 4
 
@@ -39,7 +39,7 @@ The abstract would benefit from revision to better align with the journal’s fo
 
 **Response**
 
-We agree with the Reviewer. The original abstract did not state the clinical-support gap and the design rationale sufficiently clearly. We replaced the four-part structured abstract with a single unstructured paragraph and reduced it from 461 to 195 words, within the journal's 200-word limit. The revision now follows a problem-gap-method-evidence-boundary sequence: it first explains why static digital guidance cannot coordinate changing rehabilitation needs, then shows how the five-tool ReAct architecture and deterministic safety gate address that gap, reports the principal quantitative findings and limits the conclusion to simulated technical feasibility. The complete revised abstract is reproduced below.
+We agree with the Reviewer. The original abstract did not state the clinical-support gap and the design rationale sufficiently clearly. We replaced the four-part structured abstract with a single unstructured paragraph and reduced it from 440 to 184 words, within the journal's 200-word limit. The revision now follows a problem-gap-method-evidence-boundary sequence: it first explains why static digital guidance cannot coordinate changing rehabilitation needs, then shows how the five-tool ReAct architecture and deterministic safety gate address that gap, reports the principal quantitative findings and limits the conclusion to simulated technical feasibility. The complete revised abstract is reproduced below.
 
 **Revised abstract (complete text):**
 
@@ -55,22 +55,20 @@ To enhance transparency and reproducibility, please consider adding a dedicated 
 
 **Response**
 
-We agree that the original manuscript did not make the release boundary sufficiently clear. We added a dedicated Code Availability paragraph under Declarations and revised related statements in the Introduction, Discussion and Conclusion for consistency. The public repository contains the data-processing code, versioned prompts, tool schemas and implementations, deterministic safety gate, ms-swift/Swift QLoRA configuration and launchers, evaluation code, synthetic fixtures and non-sensitive run-record templates. The curated training corpus is not redistributed because its source materials remain subject to the original providers' terms and the assembled corpus is being retained for ongoing research, intellectual-property protection and planned grant-supported work. The trained model weights and LoRA checkpoints are not released because follow-on validation and intellectual-property assessment remain ongoing and the resulting model is part of the same planned research programme. No patient-level data or private credentials are distributed. The complete statement added to the manuscript is reproduced below.
+We agree that the original manuscript did not make the release boundary sufficiently clear. We added a dedicated Code Availability paragraph under Declarations. The public repository contains the data-processing code, versioned prompts, tool schemas and implementations, deterministic safety gate, ms-swift QLoRA configuration and launchers, evaluation code, synthetic fixtures and non-sensitive run-record templates. The curated training corpus is not redistributed because its source materials remain subject to the original providers' terms and the assembled corpus is being retained for ongoing research, intellectual-property protection and planned grant-supported work. The trained model weights and LoRA checkpoints are not released because follow-on validation and intellectual-property assessment remain ongoing and the resulting model is part of the same planned research programme. No patient-level data or private credentials are distributed. To remove a direct contradiction, we also revised only the sentence in the Conclusion that had stated that the model weights would be released openly. The complete Code Availability statement is reproduced below.
 
 **Revised Code Availability statement (complete text):**
 
-> Code availability. The public repository at https://github.com/hangcao87/FractureAgent contains the data-processing scripts, versioned training prompts, tool schemas and implementations, deterministic safety gate, ms-swift/Swift QLoRA configuration and launchers, evaluation code, synthetic fixtures and non-sensitive run-record templates. The curated training corpus is not publicly distributed because the source materials remain subject to their original providers' terms and the assembled corpus is being retained for ongoing research, intellectual-property protection and planned grant-supported work. The trained FractureAgent weights and LoRA checkpoints are not publicly released because follow-on validation and intellectual-property assessment are ongoing and the resulting model forms part of the same planned research programme. No patient-level data or private credentials are included. Users may reproduce the disclosed workflow with a legally obtained local base model and their own authorized data; reasonable requests concerning derived data may be directed to hangcao87@163.com, subject to source licences, author approval and applicable institutional requirements.
+> Code availability. The public repository at https://github.com/hangcao87/FractureAgent contains the data-processing scripts, versioned training prompts, tool schemas and implementations, deterministic safety gate, ms-swift QLoRA configuration and launchers, evaluation code, synthetic fixtures and non-sensitive run-record templates. The curated training corpus is not publicly distributed because the source materials remain subject to their original providers' terms and the assembled corpus is being retained for ongoing research, intellectual-property protection and planned grant-supported work. The trained FractureAgent weights and LoRA checkpoints are not publicly released because follow-on validation and intellectual-property assessment are ongoing and the resulting model forms part of the same planned research programme. No patient-level data or private credentials are included. Users may reproduce the disclosed workflow with a legally obtained local base model and their own authorized data; reasonable requests concerning derived data may be directed to hangcao87@163.com, subject to source licences, author approval and applicable institutional requirements.
 
-**Manuscript location:** Introduction, contribution summary; Discussion, Section 7.2; Conclusion, Section 8; Declarations, Availability of data and materials and Code availability.
+**Manuscript location:** Conclusion, Section 8; Declarations, Code availability.
 
 ## Manuscript change checklist
 
-- Abstract: converted Background/Methods/Results/Conclusions into a 195-word unstructured paragraph and reproduced the complete revision above.
-- Declarations: stated separately why the curated training corpus and trained weights/checkpoints are not publicly distributed and added the contact route for derived-data requests.
-- Declarations: added a dedicated Code Availability statement covering data processing, prompts, tool implementations, Swift training configuration, evaluation code and run records.
-- Introduction and Discussion: removed ambiguous claims that the curated corpus was an open release or that the full model was reproducible from publicly released project weights and data.
-- Conclusion: removed the inconsistent statement that model weights would be released openly and replaced it with the actual release boundary.
-- Repository: added Swift-only installation, data export, QLoRA SFT, inference, evaluation and run-record workflows; no training data or checkpoints were added.
+- Abstract: converted Background/Methods/Results/Conclusions into a 184-word unstructured paragraph and reproduced the complete revision above.
+- Declarations: added a dedicated Code Availability statement covering data processing, prompts, tool implementations, ms-swift training configuration, evaluation code and run records, and explained why the curated corpus and trained weights/checkpoints are not public.
+- Conclusion: revised only the inconsistent weight-release sentence so that it matches the Code Availability statement.
+- Repository: provides ms-swift installation, data export, QLoRA SFT, inference, evaluation and run-record workflows; no training data or checkpoints are included.
 
 ## Missing information / risk flags
 

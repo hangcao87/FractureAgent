@@ -7,7 +7,7 @@ It includes:
 - open-access source ingestion, normalization, chunking, template-based dialogue construction, tool-trace construction, quality filtering, and deterministic train/dev/test splitting;
 - versioned system and data-generation prompts;
 - a typed ReAct runtime with five tools and a deterministic escalation gate;
-- an ms-swift/Swift QLoRA supervised fine-tuning launcher for a local Hugging Face-compatible backbone;
+- an ms-swift QLoRA supervised fine-tuning launcher for a local Hugging Face-compatible backbone;
 - scenario evaluation, safety metrics, and unit tests.
 
 ## What is and is not released

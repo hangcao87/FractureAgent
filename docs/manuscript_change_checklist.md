@@ -1,7 +1,10 @@
-# Manuscript changes required for consistency
+# Current-round manuscript change checklist
 
-The supplied manuscript contained several related inconsistencies: it stated that model weights would be released openly, described the curated corpus as an open release, and called the complete recipe reproducible from publicly released weights and data. These statements have been aligned with `docs/code_availability_statement.md`: the processing code, prompts, tools, Swift configuration and evaluation workflow are public, whereas the curated corpus and trained checkpoints are not publicly distributed for the stated source-use, validation, intellectual-property and planned-research reasons.
+Only the following current-round changes are permitted in the tracked manuscript:
 
-## Suggested unstructured abstract
+- Correct the third affiliation to: Department of Surgery, Xuzhou New Healthy Geriatric Hospital, Xuzhou 221007, Jiangsu Province, China.
+- Replace the four-part structured abstract with the approved 184-word unstructured abstract.
+- Add a dedicated Code Availability statement under Declarations.
+- Revise only the directly contradictory Conclusion sentence that had promised open release of the model weights.
 
-Fracture rehabilitation must adapt as pain, function and warning signs change across healing phases, but many digital tools provide static information and cannot coordinate exercise selection, symptom assessment, progress monitoring and safety escalation. To address this gap, we developed FractureAgent, a reasoning-and-action (ReAct)-style system that couples a domain-adapted Qwen3.5-9B backbone with five typed rehabilitation tools and a deterministic safety gate to provide phase-aware support. The model was adapted using quantized low-rank adaptation (QLoRA) supervised instruction tuning on 18,742 synthetic rehabilitation dialogues and tool-use traces derived from open-access clinical and patient-education sources. We evaluated FractureAgent using automated functional metrics, expert clinical ratings and 210 simulated-patient scenarios spanning six fracture types and three rehabilitation phases. It achieved a task completion rate of 91.4%, a mean clinical-appropriateness score of 4.21/5.00, pain-assessment concordance of 0.873, exercise-appropriateness of 0.896 and complication-detection sensitivity of 0.843, outperforming the evaluated baselines, including the unfine-tuned Qwen3.5-9B backbone. These findings indicate that FractureAgent can coordinate multiple rehabilitation tasks and provide adaptive support in simulated settings, addressing the technical limitations of static digital guidance; however, they do not establish clinical effectiveness or readiness for deployment.
+The Introduction, Discussion, Results, Methods, figures, tables and reference list must remain identical to the clean prior-round baseline.

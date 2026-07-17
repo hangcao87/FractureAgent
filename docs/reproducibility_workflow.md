@@ -22,7 +22,7 @@ normalize -> chunk -> template/provider synthesis -> tool traces -> quality filt
 - source ingestion and normalization logic;
 - chunking, dialogue-template and tool-trace construction code;
 - all training prompts and tool schemas;
-- the ms-swift/Swift QLoRA configuration and Windows/Linux environment scripts;
+- the ms-swift QLoRA configuration and Windows/Linux environment scripts;
 - evaluation code, synthetic smoke-test fixtures and aggregate manuscript-reported results;
 - run-record schemas for source provenance, training and evaluation.
 

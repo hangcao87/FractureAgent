@@ -16,3 +16,4 @@ outputs/*
 *.pth
 *.ckpt
 wandb/
+~$*.docx

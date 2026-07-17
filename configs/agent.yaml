@@ -3,3 +3,50 @@ temperature: 0.0
 system_prompt: prompts/system_rehab.txt
 tool_schemas: prompts/tools.json
 escalation_response: prompts/escalation_response.txt
+
+safety_gate:
+  phi1_high_pain_worsening:
+    nrs_geq: 7
+    trajectory: worsening
+    days_gt: 21
+  phi2_neuropathic_lexicon:
+    - burning
+    - electric
+    - radiating
+    - pins-and-needles
+    - pins and needles
+    - paresthesia
+  phi3_phase_threshold:
+    acute_immobilization: 8
+    early_mobilization: 7
+    strengthening: 6
+    return_to_activity: 5
+  phi4_sudden_onset_after_painfree: true
+
+complication_lexicon:
+  neurovascular_compromise:
+    - numbness
+    - pale
+    - cold
+    - blue
+    - weakness
+    - paresthesia
+  compartment_syndrome:
+    - pain out of proportion
+    - increasing pressure
+    - paralysis
+  wound_infection:
+    - wound drainage
+    - pus
+    - spreading redness
+    - fever
+  hardware_related:
+    - metallic pain
+    - catching sensation
+    - hardware failure
+  dvt:
+    - calf swelling
+    - swollen calf
+    - calf tenderness
+    - tender calf
+    - warm calf
