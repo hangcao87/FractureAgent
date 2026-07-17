@@ -11,7 +11,7 @@ dependencies = ["PyYAML>=6.0"]
 
 [project.optional-dependencies]
 data = ["beautifulsoup4>=4.12", "pypdf>=4.0", "requests>=2.31"]
-train = ["torch>=2.2", "transformers>=4.45", "datasets>=2.20", "peft>=0.12", "bitsandbytes>=0.43", "trl>=0.10", "accelerate>=0.34"]
+swift = ["ms-swift>=4.0,<5.0", "torch>=2.2", "transformers>=4.45", "datasets>=2.20", "accelerate>=0.34", "bitsandbytes>=0.43", "peft>=0.12"]
 eval = ["sacrebleu>=2.4"]
 dev = ["pytest>=8.0", "ruff>=0.6"]
 

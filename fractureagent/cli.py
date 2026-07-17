@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from fractureagent.agent.policy import DeterministicResearchPolicy, TransformersPolicy
+from fractureagent.agent.policy import DeterministicResearchPolicy, SwiftPolicy
 from fractureagent.agent.react import ReActAgent
 from fractureagent.agent.tools import ToolRegistry
 from fractureagent.config import load_yaml
@@ -19,7 +19,12 @@ def _json(path: str):
 
 def make_agent(args, deterministic: bool = False):
     cfg = load_yaml(args.agent_config)
-    policy = DeterministicResearchPolicy() if deterministic else TransformersPolicy(args.model_path, adapter_path=args.adapter_path)
+    if deterministic:
+        policy = DeterministicResearchPolicy()
+    else:
+        if not args.model_path:
+            raise ValueError("--model-path is required unless --deterministic is set")
+        policy = SwiftPolicy(args.model_path, adapter_path=args.adapter_path)
     tool_schemas = _json(cfg["tool_schemas"])
     evidence = read_jsonl(args.evidence) if getattr(args, "evidence", None) else []
     return ReActAgent(policy, Path(cfg["system_prompt"]).read_text(encoding="utf-8"), tool_schemas, ToolRegistry(evidence), Path(cfg["escalation_response"]).read_text(encoding="utf-8"), int(cfg.get("max_steps", 4)))
@@ -34,14 +39,14 @@ def main() -> None:
     p.add_argument("--agent-config", default="configs/agent.yaml"); p.add_argument("--user", required=True); p.add_argument("--evidence"); p.add_argument("--deterministic", action="store_true"); p.add_argument("--model-path"); p.add_argument("--adapter-path")
     p = sub.add_parser("evaluate")
     p.add_argument("--agent-config", default="configs/agent.yaml"); p.add_argument("--scenarios", required=True); p.add_argument("--evidence"); p.add_argument("--deterministic", action="store_true"); p.add_argument("--model-path"); p.add_argument("--adapter-path"); p.add_argument("--output")
-    p = sub.add_parser("train-sft")
-    p.add_argument("--config", required=True); p.add_argument("--model-path", required=True); p.add_argument("--dataset", required=True); p.add_argument("--output-dir", required=True)
+    p = sub.add_parser("export-swift")
+    p.add_argument("--input", required=True); p.add_argument("--output", required=True); p.add_argument("--agent-ratio", type=float, default=0.7); p.add_argument("--seed", type=int, default=2026)
     args = parser.parse_args()
     if args.command == "build-dataset":
         print(json.dumps(build_dataset(args.input, args.output, load_yaml(args.config)), ensure_ascii=False, indent=2))
-    elif args.command == "train-sft":
-        from fractureagent.train.sft import train_qlora
-        train_qlora(args.model_path, args.dataset, args.output_dir, load_yaml(args.config))
+    elif args.command == "export-swift":
+        from fractureagent.train.swift_format import export_swift_jsonl
+        print(json.dumps({"records": export_swift_jsonl(args.input, args.output, args.agent_ratio, args.seed)}, indent=2))
     elif args.command == "run-agent":
         result = make_agent(args, deterministic=args.deterministic).run(args.user)
         print(json.dumps(result, ensure_ascii=False, indent=2))

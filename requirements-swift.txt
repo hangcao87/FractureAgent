@@ -1,0 +1,9 @@
+# Primary training framework. The official ms-swift repository currently uses
+# the 4.x command interface: `swift sft` with `--tuner_type lora`.
+ms-swift>=4.0,<5.0
+torch>=2.2
+transformers>=4.45
+datasets>=2.20
+accelerate>=0.34
+bitsandbytes>=0.43
+peft>=0.12

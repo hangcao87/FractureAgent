@@ -1,0 +1,18 @@
+{
+  "run_id": "YYYYMMDD-HHMMSS-data",
+  "git_commit": "",
+  "prompt_version": "prompts-v1",
+  "source_manifest": "records/data_processing/source_manifest.template.jsonl",
+  "raw_files": [],
+  "raw_file_sha256": {},
+  "source_access_dates": {},
+  "license_review_status": "pending_author_review",
+  "input_records": null,
+  "source_chunks": null,
+  "dialogue_examples": null,
+  "agent_trace_examples": null,
+  "quality_rejected": null,
+  "split_counts": {"train": null, "dev": null, "test": null},
+  "seed": 2026,
+  "notes": "Do not commit raw source files or the restricted training corpus."
+}

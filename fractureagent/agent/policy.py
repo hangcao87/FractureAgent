@@ -24,23 +24,26 @@ class DeterministicResearchPolicy:
         return "Thought: select the tool needed for structured research output.\nAction: " + json.dumps(action, sort_keys=True)
 
 
-class TransformersPolicy:
-    """Optional local Hugging Face policy. It loads only a user-supplied local path."""
+class SwiftPolicy:
+    """Local inference policy backed by the native ms-swift engine.
+
+    The base model and LoRA adapter must already exist locally. Importing Swift
+    lazily keeps deterministic data/evaluation smoke tests dependency-free.
+    """
 
     def __init__(self, model_path: str, adapter_path: str | None = None, **generation_kwargs: Any):
         try:
-            from transformers import AutoModelForCausalLM, AutoTokenizer
+            from swift import InferRequest, RequestConfig, TransformersEngine
         except ImportError as exc:
-            raise RuntimeError("Install the [train] extras to use TransformersPolicy") from exc
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
-        self.model = AutoModelForCausalLM.from_pretrained(model_path, local_files_only=True, device_map="auto", **generation_kwargs.pop("model_kwargs", {}))
-        if adapter_path:
-            from peft import PeftModel
-            self.model = PeftModel.from_pretrained(self.model, adapter_path, local_files_only=True)
-        self.generation_kwargs = {"max_new_tokens": 512, "do_sample": False, **generation_kwargs}
+            raise RuntimeError("Install the [swift] extra to use SwiftPolicy") from exc
+        self._infer_request = InferRequest
+        self._request_config = RequestConfig
+        engine_kwargs = generation_kwargs.pop("engine_kwargs", {})
+        adapters = [adapter_path] if adapter_path else None
+        self.engine = TransformersEngine(model_path, adapters=adapters, **engine_kwargs)
+        self.generation_kwargs = {"max_tokens": 512, "temperature": 0.0, **generation_kwargs}
 
     def generate(self, messages: list[dict[str, str]]) -> str:
-        prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
-        output = self.model.generate(**inputs, **self.generation_kwargs)
-        return self.tokenizer.decode(output[0][inputs["input_ids"].shape[-1]:], skip_special_tokens=True)
+        request = self._infer_request(messages=messages)
+        response = self.engine.infer([request], self._request_config(**self.generation_kwargs))[0]
+        return response.choices[0].message.content or ""

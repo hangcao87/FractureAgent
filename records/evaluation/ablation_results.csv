@@ -1,0 +1,7 @@
+configuration,tcr_percent,clinical_score_5,complication_sensitivity,exercise_appropriateness,provenance
+FractureAgent full,91.4,4.21,0.843,0.896,manuscript_reported
+Without exercise_query,76.2,3.63,0.841,0.721,manuscript_reported
+Without pain_assess,82.7,3.91,0.601,0.887,manuscript_reported
+Without progress_track,85.3,3.87,0.838,0.864,manuscript_reported
+Without literature_search,88.1,3.94,0.840,0.878,manuscript_reported
+Without fine-tuning,61.4,3.21,0.592,0.703,manuscript_reported

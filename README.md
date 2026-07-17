@@ -7,7 +7,7 @@ It includes:
 - open-access source ingestion, normalization, chunking, template-based dialogue construction, tool-trace construction, quality filtering, and deterministic train/dev/test splitting;
 - versioned system and data-generation prompts;
 - a typed ReAct runtime with five tools and a deterministic escalation gate;
-- QLoRA supervised fine-tuning code for a local Hugging Face-compatible backbone;
+- an ms-swift/Swift QLoRA supervised fine-tuning launcher for a local Hugging Face-compatible backbone;
 - scenario evaluation, safety metrics, and unit tests.
 
 ## What is and is not released
@@ -20,7 +20,7 @@ The example data shipped here are synthetic fixtures for testing the pipeline. T
 
 1. **Code-level reproducibility:** run the tests and the deterministic tools without model weights.
 2. **Pipeline reproducibility:** place legally obtained open-access documents in `data/raw/` and run extraction, chunking, synthesis, trace augmentation, filtering, and splitting.
-3. **Training reproducibility:** provide a compatible local base model through `MODEL_PATH`, then run QLoRA SFT with `configs/train_sft.yaml`. The trained adapter is intentionally written to a local output directory and is not committed.
+3. **Training reproducibility:** provide a compatible local base model through `MODEL_PATH`, then run the ms-swift QLoRA SFT launcher with `configs/swift_sft.yaml`. The trained adapter is intentionally written to a local output directory and is not committed.
 
 ## Quick start
 
@@ -29,17 +29,18 @@ $PYTHON = "C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\de
 & $PYTHON -m pip install -e ".[dev]"
 & $PYTHON -m pytest -q
 & $PYTHON -m fractureagent.cli build-dataset --config configs/data.yaml --input data/examples/source_blocks.jsonl --output data/processed
+& $PYTHON -m fractureagent.cli export-swift --input data/processed/train.jsonl --output data/processed/train_swift.jsonl
 ```
 
-For model training, install the optional training dependencies and set a local model path:
+For model training, install the Swift environment and set a local model path:
 
 ```powershell
-& $PYTHON -m pip install -e ".[train]"
+& .\scripts\00_install_swift.ps1
 $env:MODEL_PATH = "D:\models\qwen-compatible-local-base"
-& $PYTHON -m fractureagent.cli train-sft --config configs/train_sft.yaml --model-path $env:MODEL_PATH --dataset data/processed/train.jsonl --output-dir outputs/local_adapter
+& .\scripts\02_train_swift.ps1 -ModelPath $env:MODEL_PATH -Dataset data/processed/train_swift.jsonl -Output outputs/local_adapter
 ```
 
-The training entry point requires a local model and does not embed or retrieve any project checkpoint.
+The training entry point requires a local model and does not embed or retrieve any project checkpoint. The public repository contains prompts and processing code, but not the training corpus or trained adapter.
 
 ## Repository map
 
@@ -48,11 +49,12 @@ fractureagent/
   agent/       prompts, typed tools, safety gate, policy adapter, ReAct loop
   data/        ingestion, chunking, synthesis, traces, filtering, splitting
   eval/        scenarios and metrics
-  train/       chat-format conversion and QLoRA SFT launcher
+  train/       chat-format conversion and Swift/QLoRA SFT launchers
 configs/       data, agent, evaluation, and training configuration
 prompts/       versioned prompt text and JSON tool definitions
 data/          raw/processed placeholders and synthetic fixtures
-scripts/       end-to-end shell entry points
+scripts/       environment, training, data, and evaluation entry points
+records/       data provenance, training, evaluation, and run-record templates (no raw data)
 tests/         dependency-light unit tests
 ```
 
