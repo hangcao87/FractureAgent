@@ -1,29 +1,14 @@
-# Data sources, licensing, and responsible-use notes
+# Data and source-material policy
 
-This repository ships **code only**. Running the crawlers downloads third-party
-content that remains under the license of its source. **You are responsible for
-complying with each source's Terms of Service, robots.txt, and license.** The
-crawlers in `fractureagent/data/` are rate-limited, identify themselves with a
-descriptive User-Agent, honour `robots.txt`, and prefer official APIs/bulk
-endpoints. Do not remove those safeguards.
+The repository does not redistribute downloaded clinical guidelines, articles, or patient-education pages. Users must obtain them directly from the original providers and follow their current terms.
 
-| Source | Access method | License / terms | Notes |
-|--------|---------------|-----------------|-------|
-| AAOS Clinical Practice Guidelines (OrthoGuidelines) | website, robots-checked | © AAOS; free to read; redistribution restricted | Store locally; do **not** redistribute raw text. |
-| AO Surgery Reference | website, open-access sections only | © AO Foundation | Open-access sections only. |
-| PubMed Central Open Access subset | NCBI E-utilities + PMC OA web service / FTP | OA subset is redistributable per each article's CC license | Respect NCBI usage policy; set `NCBI_EMAIL`/`NCBI_API_KEY`. |
-| PhysioNet | wget over HTTPS; some datasets credentialed | per-dataset (often ODC-BY / PhysioNet Credentialed Health Data License) | Credentialed datasets require an approved account and a signed DUA. |
-| WikiDoc | website | CC BY-SA | Attribute and share-alike if redistributed. |
-| MedlinePlus | website / Web service | U.S. public domain (most content) | Some linked content is third-party. |
+The manuscript's source classes are represented in `configs/sources.yaml`: AAOS guidelines, AO Surgery Reference, PubMed Central Open Access, PhysioNet, WikiDoc, and MedlinePlus. The ingestion code records a source URL, access date, license note, and local checksum in the manifest. It refuses to silently treat an unknown source as redistributable.
 
-**Synthetic dialogues.** The processed training corpus is produced by a
-template-guided GPT-4o pass over the extracted chunks (`synthesize_dialogues.py`).
-Synthetic text is a derivative of the source guidelines; treat redistribution
-according to the most restrictive upstream license. No real patient data are
-collected or generated.
+Synthetic fixtures under `data/examples/` are original test records and contain no patient data. They are included only to exercise the code path.
 
-**What we recommend depositing on Zenodo:** this code, the configs, the prompt
-templates, the tool schemas, the safety-gate thresholds, the evaluation harness,
-and — where licenses permit — the *processed* dataset and the trained LoRA
-adapters. Where a license forbids redistribution, deposit the code + a manifest
-(URLs + checksums) so others can re-fetch.
+Before publication or redistribution, the user is responsible for checking:
+
+1. terms of use and license compatibility for each source;
+2. robots, API, and rate-limit requirements;
+3. removal of credentials, downloaded raw files, and local patient or institutional identifiers;
+4. whether generated examples require attribution to the source material or generation provider.

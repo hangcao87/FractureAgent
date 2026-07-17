@@ -1,0 +1,4 @@
+Create one research-training dialogue from the supplied open-access evidence block.
+
+Return JSON with keys: fracture_type, body_region, phase, patient_context, messages, source_id.
+The dialogue must be educational, conditional, and consistent with the evidence block. Do not create a diagnosis, guaranteed outcome, medication change, or invented citation. Include a patient utterance, a clinician-style response, and a short safety reminder when the block contains contraindications.

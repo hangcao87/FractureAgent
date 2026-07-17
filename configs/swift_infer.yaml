@@ -1,0 +1,5 @@
+model: ${MODEL_PATH}
+adapters: outputs/fractureagent_swift_lora
+infer_backend: transformers
+max_new_tokens: 512
+stream: false

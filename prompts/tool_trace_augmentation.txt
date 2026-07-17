@@ -1,0 +1,4 @@
+Convert the dialogue into a FractureAgent tool-use trace.
+
+Return JSON with keys: system, user, assistant_trace, tools_used, source_ids.
+assistant_trace must contain explicit Thought, Action, Observation, and Response blocks. Select at most one tool per action. Arguments must validate against prompts/tools.json. Observations must be deterministic outputs derived from the supplied evidence or scenario; never invent a clinical measurement.

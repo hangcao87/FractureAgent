@@ -1,0 +1,4 @@
+seed: 2026
+scenarios: evaluation/scenarios.jsonl
+max_steps: 4
+bootstrap_repeats: 2000

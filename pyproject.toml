@@ -1,14 +1,22 @@
-[project]
-name = "fractureagent"
-version = "1.0.0"
-description = "Multi-tool LLM agent for fracture-rehabilitation support (SFT + GRPO)"
-readme = "README.md"
-requires-python = ">=3.10"
-license = {text = "Apache-2.0"}
-dynamic = ["dependencies"]
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+[project]
+name = "fractureagent-reproducible"
+version = "0.1.0"
+description = "Reproducible data, prompt, agent, training, and evaluation recipe for FractureAgent"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+data = ["beautifulsoup4>=4.12", "pypdf>=4.0", "requests>=2.31"]
+swift = ["ms-swift>=4.0,<5.0", "torch>=2.2", "transformers>=4.45", "datasets>=2.20", "accelerate>=0.34", "bitsandbytes>=0.43", "peft>=0.12"]
+eval = ["sacrebleu>=2.4"]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.scripts]
+fractureagent = "fractureagent.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["fractureagent*"]

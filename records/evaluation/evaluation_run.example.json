@@ -1,0 +1,16 @@
+{
+  "run_id": "YYYYMMDD-HHMMSS-eval",
+  "git_commit": "",
+  "evaluation_code_version": "0.1.0",
+  "scenario_file_local": "REDACTED_LOCAL_PATH",
+  "scenario_sha256": "",
+  "scenario_count": 210,
+  "seed": 2026,
+  "model_label": "FractureAgent",
+  "adapter_path_local": "REDACTED_LOCAL_PATH",
+  "baseline_labels": ["Static rule-based", "GPT-4o 0-shot", "GPT-4o 5-shot", "LLaMA-3.1-8B-FT", "Qwen3.5-9B base"],
+  "metrics": {"tcr": null, "bleu4": null, "clinical_score_mean": null, "pain_concordance": null, "exercise_appropriateness": null, "complication_sensitivity": null},
+  "expert_ratings_recorded": false,
+  "aggregate_only": true,
+  "notes": "No scenario-level outputs or rater-level records are committed."
+}

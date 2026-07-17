@@ -1,0 +1,7 @@
+model,tcr_percent,clinical_score_5,pain_concordance,exercise_appropriateness,complication_sensitivity,bleu4,provenance
+Static rule-based,52.4,2.87,0.641,0.713,0.412,,manuscript_reported
+GPT-4o 0-shot,67.3,3.61,0.741,0.793,0.651,0.312,manuscript_reported
+GPT-4o 5-shot,73.8,3.84,0.769,0.821,0.694,0.341,manuscript_reported
+LLaMA-3.1-8B-FT,79.5,3.79,0.801,0.843,0.742,0.381,manuscript_reported
+Qwen3.5-9B base,61.4,3.21,0.692,0.703,0.592,0.281,manuscript_reported
+FractureAgent,91.4,4.21,0.873,0.896,0.843,0.453,manuscript_reported
