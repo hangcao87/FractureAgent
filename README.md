@@ -12,7 +12,7 @@ It includes:
 
 ## What is and is not released
 
-The source code, prompts, configuration files, synthetic example records, and data-processing recipe are released. The trained FractureAgent model weights, private checkpoints, private API credentials, and any non-public institutional materials are **not** included in this repository. The authors retain these materials for ongoing research and grant-application work. The code therefore accepts a local `MODEL_PATH` or adapter path and does not download or expose a trained FractureAgent checkpoint.
+The source code, prompts, configuration files, synthetic example records, and data-processing recipe are released. The curated training corpus is not publicly distributed because its source materials remain subject to their original providers' terms and the assembled corpus is being retained for ongoing research, intellectual-property protection and planned grant-supported work. The trained FractureAgent model weights and LoRA checkpoints are not released because follow-on validation and intellectual-property assessment remain ongoing and the resulting model forms part of the same planned research programme. No patient-level data, private API credentials or non-public institutional materials are included. The code accepts a local `MODEL_PATH` or adapter path and does not download or expose a trained FractureAgent checkpoint. Reasonable requests concerning derived data may be directed to hangcao87@163.com, subject to source licences, author approval and applicable institutional requirements.
 
 The example data shipped here are synthetic fixtures for testing the pipeline. They are not clinical advice, are not a substitute for clinician review, and must not be used for patient care.
 
